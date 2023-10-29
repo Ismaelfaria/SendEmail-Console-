@@ -1,8 +1,8 @@
 ﻿namespace Send
 {
-    public class Email : InputInformation
+    public class Mail : InputInformation
     {
-        public Email(string provider, string userName, string password) : base(provider, userName, password)
+        public Mail(string provider, string userName, string password) : base(provider, userName, password)
         {
             this.Provider = provider;
             this.UserName = userName;

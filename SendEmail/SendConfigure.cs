@@ -4,7 +4,7 @@ using System.Net.Mail;
 
 namespace Send
 {
-    public class SendConfigure : Email
+    public class SendConfigure : Mail
     {
         public SendConfigure(string provider, string userName, string password) : base(provider, userName, password)
         {
@@ -13,25 +13,25 @@ namespace Send
             this.Password = password;
         }
 
-        public void SendEmail(List<string> emailsTo, string subject, string body)
+        public void SendMail(List<string> emailsTo, string subject, string body)
         {
             var message = PrepareteMail(emailsTo, subject, body);
 
-            SendEmailBySmtp(message);
+            SendMailBySmtp(message);
         }
 
 
-        private MailMessage PrepareteMail(List<string> emailsTo, string subject, string body)
+        private MailMessage PrepareteMail(List<string> mailsTo, string subject, string body)
         {
             var mail = new MailMessage();
             mail.From = new MailAddress(UserName);
 
-            foreach (var email in emailsTo)
+            foreach (var mmail in mailsTo)
             {
                 var v = new ValidateMails();
-                if (v.ValidateMail(email))
+                if (v.ValidateMail(mmail))
                 {
-                    mail.To.Add(email);
+                    mail.To.Add(mmail);
                 }
             }
 
@@ -43,7 +43,7 @@ namespace Send
             return mail;
         }
 
-        private void SendEmailBySmtp(MailMessage message)
+        private void SendMailBySmtp(MailMessage message)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com");
             smtpClient.Host = Provider;
