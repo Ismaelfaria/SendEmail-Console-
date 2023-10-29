@@ -13,6 +13,12 @@ namespace Send
             this.Password = password;
         }
 
+        /// <summary>
+        /// Usado para enviar o email
+        /// </summary>
+        /// <param name="emailsTo">Lista de endereços de e-mail dos destinatários.</param>
+        /// <param name="subject">Assunto do e-mail.</param>
+        /// <param name="body">Corpo do e-mail.</param>
         public void SendMail(List<string> emailsTo, string subject, string body)
         {
             var message = PrepareteMail(emailsTo, subject, body);
@@ -20,7 +26,9 @@ namespace Send
             SendMailBySmtp(message);
         }
 
-
+        /// <summary>
+        /// Preparar o email para a configuração
+        /// </summary>
         private MailMessage PrepareteMail(List<string> mailsTo, string subject, string body)
         {
             var mail = new MailMessage();
@@ -43,6 +51,10 @@ namespace Send
             return mail;
         }
 
+        /// <summary>
+        /// Usado para enviar o email
+        /// </summary>
+        /// <param name="message">Instancia do preparador de email</param>
         private void SendMailBySmtp(MailMessage message)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com");
