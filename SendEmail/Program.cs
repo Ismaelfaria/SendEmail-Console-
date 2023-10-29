@@ -1,20 +1,18 @@
-﻿using SendEmail;
+﻿using Send;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Net.Mail;
 
-string provedor = ConfigurationManager.AppSettings["EmailProvedor"];
-string usuario = ConfigurationManager.AppSettings["EmailUsuario"];
-string senha = ConfigurationManager.AppSettings["EmailSenha"];
-
-Email outlook = new Email(provedor, usuario, senha);
+string Provedor = ConfigurationManager.AppSettings["Provider"];
+string UserMail = ConfigurationManager.AppSettings["UserMail"];
+string Password = ConfigurationManager.AppSettings["Password"];
 
 
-outlook.SendEmail(
-    emailsTo: new List<string>
-    {
-        "ismaellima89012@gmail.com"
-    },
-    subject: "test",
-    body: "Segue o anexo"
-    );
+var gmail = new Email(Provedor, UserMail, Password);
+
+var send = new SendConfigure(Provedor, UserMail, Password);
+
+
+send.SendEmail(emailsTo: new List<string> { "ismaellima89012@gmail.com" },
+subject: "test",
+body: "Segue o anexo"
+);
