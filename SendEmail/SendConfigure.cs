@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Net;
 using System.Net.Mail;
 
@@ -12,6 +13,7 @@ namespace Send
             this.UserName = userName;
             this.Password = password;
         }
+
 
         /// <summary>
         /// Usado para enviar o email
@@ -55,11 +57,14 @@ namespace Send
         /// Usado para enviar o email
         /// </summary>
         /// <param name="message">Instancia do preparador de email</param>
+
         private void SendMailBySmtp(MailMessage message)
         {
-            var smtpClient = new SmtpClient("smtp.gmail.com");
+            int port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+            
+            var smtpClient = new SmtpClient(Provider);
             smtpClient.Host = Provider;
-            smtpClient.Port = 587;
+            smtpClient.Port = port;
             smtpClient.EnableSsl = true;
             smtpClient.Timeout = 50000;
             smtpClient.UseDefaultCredentials = false;
@@ -67,5 +72,6 @@ namespace Send
             smtpClient.Send(message);
             smtpClient.Dispose();
         }
+      
     }
 }

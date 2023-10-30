@@ -47,8 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Email.cs" />
-    <Compile Include="IInputInformation.cs" />
+    <Compile Include="Mail.cs" />
+    <Compile Include="InputInformation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendConfigure.cs" />
