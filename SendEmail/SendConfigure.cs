@@ -7,13 +7,14 @@ namespace Send
 {
     public class SendConfigure : Mail
     {
-        public SendConfigure(string provider, string userName, string password) : base(provider, userName, password)
+        public SendConfigure(string provider, string userName, string password, int port) : base(provider, userName, password, port)
         {
             this.Provider = provider;
             this.UserName = userName;
             this.Password = password;
+            this.Port = port;
         }
-
+        
 
         /// <summary>
         /// Usado para enviar o email
@@ -60,11 +61,11 @@ namespace Send
 
         private void SendMailBySmtp(MailMessage message)
         {
-            int port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+            var port = int.TryParse(ConfigurationManager.AppSettings["Port"], out var porta);
             
             var smtpClient = new SmtpClient(Provider);
             smtpClient.Host = Provider;
-            smtpClient.Port = port;
+            smtpClient.Port = porta;
             smtpClient.EnableSsl = true;
             smtpClient.Timeout = 50000;
             smtpClient.UseDefaultCredentials = false;

@@ -1,15 +1,31 @@
-﻿using System;
-
-namespace Send
+﻿namespace Send
 {
-    public abstract class Mail : InputInformation
+    public abstract class Mail
     {
-        public Mail(string provider, string userName, string password)
+        public string Provider { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int Port { get; set; }
+
+        protected Mail(string provider, string userName, string password, int port)
         {
-            Provider = provider ?? throw new ArgumentNullException(nameof(provider));
-            UserName = userName ?? throw new ArgumentNullException(nameof(userName));
-            Password = password ?? throw new ArgumentNullException(nameof(password));
+            Provider = provider;
+            UserName = userName;
+            Password = password;
+            Port = port;
         }
 
+        public bool EhValido
+        {
+            get
+            {
+                var providerValido = !string.IsNullOrEmpty(Provider);
+                var emailValido = !string.IsNullOrEmpty(this.UserName);
+                var senhaValida = !string.IsNullOrEmpty(this.Password);
+                var portaValida = this.Port > 0;
+
+                return providerValido && emailValido && senhaValida && portaValida;
+            }
+        }
     }
 }
